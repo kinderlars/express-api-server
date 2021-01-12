@@ -17,8 +17,4 @@ router.get('/index', function(req, res, next) {
   res.render('index');
 });
 
-router.post('/',function (req,res) {
-
-})
-
 export const IndexRouter = router;
