@@ -1,0 +1,95 @@
+{
+	"info": {
+		"_postman_id": "76b839f1-111a-46ab-96b3-a916ab0aedb0",
+		"name": "Express Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Member with Query",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v0/members/?id=4ec0cbec-78a8-4142-a9af-ae23d64cece6",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v0",
+						"members",
+						""
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "4ec0cbec-78a8-4142-a9af-ae23d64cece6"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post Member",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{       \n    \"firstname\": \"Peter\",\n    \"surname\": \"Meyer\",\n    \"email\": \"Test@test.com\",\n    \"status\": \"active\"    \n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v0/members",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v0",
+						"members"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get members",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/v0/members",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v0",
+						"members"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
