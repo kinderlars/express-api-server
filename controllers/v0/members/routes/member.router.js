@@ -99,6 +99,12 @@ function findUserById(id){
   )
 }
 
+/**
+ * Function that takes request parameters and filters members for a match
+ * @param queryParam
+ * @returns {[]|*[]}
+ */
+
 function findUserByParam(queryParam) {
 
   const qParams = queryParam;
@@ -118,7 +124,7 @@ function findUserByParam(queryParam) {
     let preFiltered = members;
 
     for( let q of qKeys) {
-      console.log(`Looping keys, now applying key ${q}`);
+      console.log(`Looping keys, now trying to apply key/value: ${q}/${JSON.stringify(qParams[q])}`);
       preFiltered = preFiltered.filter(value =>
           value[q] === qParams[q])
       console.log(`Content of preFiltered ${JSON.stringify(preFiltered)}`)
