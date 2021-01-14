@@ -100,53 +100,35 @@ function findUserById(id){
 }
 
 function findUserByParam(queryParam) {
-  // console.log(Object.keys(queryParam));
-  // console.log(Object.values(queryParam));
 
   const qParams = queryParam;
   const qKeys = Object.keys(queryParam);
-  const qValues = Object.values(queryParam);
 
   console.log(`Params ${JSON.stringify(qParams)}`)
   console.log(`Keys ${qKeys}`)
-  console.log(`Values ${qValues}`)
 
   console.log(`qkey variable has a length of ${qKeys.length}`)
 
   let result;
 
+  // Processing requests with more than 1 parameters
   if(qKeys.length > 1){
-    console.log("multiple params provided")
+    console.log(`Multiple params provided ${JSON.stringify(qKeys)}`)
 
-    let filteredMembers = members.filter(value => value[qKeys] === qParams[qKeys])
-    console.log(`Output for filteredMembers: ${JSON.stringify(filteredMembers)}`)
-    qKeys.shift()
+    let preFiltered = members;
 
-    if(qKeys.length > 1){
-      let tmp = filteredMembers;
-      for( let q of qKeys) {
-        console.log(`Looping keys, now applying key ${q}`);
-        tmp = tmp.filter(value =>
-            value[q] === qParams[q])
-        console.log(`Content of tmp ${JSON.stringify(tmp)}`)
-      }
-
-      result = tmp;
-      return result;
+    for( let q of qKeys) {
+      console.log(`Looping keys, now applying key ${q}`);
+      preFiltered = preFiltered.filter(value =>
+          value[q] === qParams[q])
+      console.log(`Content of preFiltered ${JSON.stringify(preFiltered)}`)
     }
-
-    return filteredMembers.filter(value =>
-        value[qKeys] === qParams[qKeys]
-    )
+    result = preFiltered;
     return result;
   }
+  return members.filter(value =>
+      value[qKeys] === qParams[qKeys])
 
-  console.log(`The query key ${qKeys}`)
-
-  result = members.filter(value =>
-    value[qKeys] === qParams[qKeys]
-  )
-  return result;
 }
 
 export const MemberRouter = router;
