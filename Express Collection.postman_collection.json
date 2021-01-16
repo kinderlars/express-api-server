@@ -47,7 +47,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{       \n    \"firstname\": \"Peter\",\n    \"surname\": \"Meyer\",\n    \"email\": \"Test@test.com\",\n    \"status\": \"active\"    \n}\n",
+					"raw": "{       \n    \"firstname\": \"Alex\",\n    \"surname\": \"Meyer\",\n    \"email\": \"Test@test.com\",\n    \"status\": \"active\"    \n}\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -86,6 +86,64 @@
 						"api",
 						"v0",
 						"members"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Products ",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v0/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v0",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post Product",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{       \n    \"name\": \"vehicle small\",\n    \"description\": \"A small vehicle\",\n    \"vendor\": \"Fakebrand 1\"    \n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v0/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v0",
+						"products"
 					]
 				}
 			},
