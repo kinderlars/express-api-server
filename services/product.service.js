@@ -1,34 +1,45 @@
-import * as AWS from 'aws-sdk';
+import AWS from 'aws-sdk';
 import { awsConfig } from '../ressources/aws.config.js';
-// import { dynamodbConfig } from '../ressources/dynamodb.config.js';
 
-export class ProductService {
-  constructor() {
+export async function getProducts(){
     const docClient = new AWS.DynamoDB.DocumentClient(awsConfig);
-  }
-  getProducts(){
+    const tableName = "some-table"
+
     const params = {
-      TableName: "NAME"
+      TableName: tableName
     }
 
-    docClient.get(params, (err, data) => {
-      if (err) {
-        console.log(err)
-        res.send({
-          success: false,
-          message: err
-        });
-      } else {
-        const { Items } = data;
-        res.send({
-          success: true,
-          product: Items
-        });
-      }
-    })
+    console.log(`Scanning ${tableName} table.`);
+    docClient.scan(params, onScan);
 
-  }
+    let results = [];
+    
+    function onScan(err, data) {
+        if (err) {
+            console.error("Unable to scan the table. Error JSON:", JSON.stringify(err, null, 2));
+        } else {
+            data.Items.forEach((products) => {
+                console.log("Table contains objects")
+                console.log(
+                    JSON.stringify(products));
+                results.push(products);
+            });
+            console.log(JSON.stringify(results))
+            
+    
+            // continue scanning if we have more movies, because
+            // scan can retrieve a maximum of 1MB of data
+            if (typeof data.LastEvaluatedKey != "undefined") {
+                console.log("Scanning for more...");
+                params.ExclusiveStartKey = data.LastEvaluatedKey;
+                docClient.scan(params, onScan);
 
-}
+            }
+        }
+        return new Promise((resolve,reject) => {
+            results
+        });
+    }
+};
 
 

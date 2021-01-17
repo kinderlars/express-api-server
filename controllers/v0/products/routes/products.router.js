@@ -5,7 +5,7 @@
 import { Router } from 'express';
 import * as uuid from "uuid";
 import bodyParser from 'body-parser';
-import { ProductService } from "../../../../services/product.service.js";
+import { getProducts } from "../../../../services/product.service.js";
 
 /**
  * Create express router to manage incoming requests
@@ -16,11 +16,17 @@ router.use(bodyParser.json());
 
 let products = [];
 
-router.get('/',async (req, res) => {
+router.get('/', async (req, res) => {
   try{
-    const productService = new ProductService();
-    const result = productService.getProducts();
-    console.log(result)
+    // TODO: This is causing me problems, as I need the output of the getProducts function
+    const results = await getProducts();
+    results.then(products.push(results))
+    console.log(products)
+    
+    if(products.length){
+      return res.status(400).send({message: "No data was found in table"})
+    }
+    res.status(200).send(`I succeeded ${JSON.stringify(products)}`)
     // if(products.length===0){
     //   return res.status(400).send("No products found!")
     // }
