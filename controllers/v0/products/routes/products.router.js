@@ -19,14 +19,17 @@ let products = [];
 router.get('/', async (req, res) => {
   try{
     // TODO: This is causing me problems, as I need the output of the getProducts function
-    const results = await getProducts();
-    results.then(products.push(results))
+    // Check for singelton
+    // const productService = new ProductService();
+    // const results = await productService.getProducts();
+
+    products = await getProducts()
     console.log(products)
     
-    if(products.length){
+    if(products.length === 0){
       return res.status(400).send({message: "No data was found in table"})
     }
-    res.status(200).send(`I succeeded ${JSON.stringify(products)}`)
+    res.status(200).send(products)
     // if(products.length===0){
     //   return res.status(400).send("No products found!")
     // }
