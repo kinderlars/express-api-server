@@ -5,7 +5,10 @@
 import { Router } from 'express';
 import * as uuid from "uuid";
 import bodyParser from 'body-parser';
-import { getProducts } from "../../../../services/product.service.js";
+import {
+  createProduct,
+  getProducts
+} from "../../../../services/product.service.js";
 
 /**
  * Create express router to manage incoming requests
@@ -24,8 +27,8 @@ router.get('/', async (req, res) => {
     // const results = await productService.getProducts();
 
     products = await getProducts()
-    console.log(products)
-    
+    //console.info(products)
+
     if(products.length === 0){
       return res.status(400).send({message: "No data was found in table"})
     }
@@ -53,9 +56,14 @@ router.post('/', async (req,res) => {
       description: req.body.description,
       vendor: req.body.vendor
     }
+    console.log(product)
 
-    products.push(product)
-    res.status(200).send(product)
+    const status = await createProduct(product)
+    if (!status){
+      res.status(400).send("Product was not added!")
+    }
+    res.status(200).send("Product was added!")
+
 
   }catch (e) {
     console.error(e.message)
