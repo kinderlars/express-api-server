@@ -6,7 +6,7 @@ import { Router } from 'express';
 import * as uuid from "uuid";
 import bodyParser from 'body-parser';
 import {
-  createProduct, getProduct,
+  createProduct, deleteProduct, getProduct,
   getProducts
 } from "../../../../services/product.service.js";
 
@@ -45,7 +45,9 @@ router.get('/', async (req, res) => {
 router.get('/:id',async (req, res) => {
     try{
       const matches = await getProduct(req.params.id)
-
+      if(matches.length === 0 ){
+        return res.status(400).send({message: "No product found with this id"})
+      }
       res.status(200).send(matches)
 
     }catch (e){
@@ -82,14 +84,27 @@ router.post('/', async (req,res) => {
   }
 })
 
-// router.delete('/:id',async (req,res) =>{
-//   try{
-//     const id = id
-//     if (id.length === 0){
-//       res.send(400).send({message: "Please provide a product id."})
-//     }
-//     if()
-//   }
-// })
+router.delete('/:id',async (req,res) =>{
+  try {
+    const id = req.params.id
+
+    // More generic would be to implement !==36
+    // TODO: Implement once all old items are removed from Dynamodb table
+    // if (id.length < 36){
+    //   console.log(`Passed uuid is too short ${id.length}`)
+    //   res.status(400).send({message: "The uuid provided seems to be too short"})
+    // } else if (id.length >36){
+    //   console.log(`Passed uuid is too long ${id.length}`)
+    // }
+
+    if(!await getProduct(id)){
+      res.status(400).send({message: "No product with this id found"})
+    }
+    const productsDelete = await deleteProduct(id)
+    res.status(200).send({message: `Product with the id ${id} deleted.`})
+  }catch (e) {
+    console.error(e.message)
+  }
+})
 
 export const ProductRouter = router;
