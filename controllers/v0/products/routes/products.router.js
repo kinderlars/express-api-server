@@ -6,7 +6,7 @@ import { Router } from 'express';
 import * as uuid from "uuid";
 import bodyParser from 'body-parser';
 import {
-  createProduct,
+  createProduct, getProduct,
   getProducts
 } from "../../../../services/product.service.js";
 
@@ -42,6 +42,18 @@ router.get('/', async (req, res) => {
   }
 })
 
+router.get('/:id',async (req, res) => {
+    try{
+      const matches = await getProduct(req.params.id)
+
+      res.status(200).send(matches)
+
+    }catch (e){
+      console.error(e)
+    }
+  }
+)
+
 router.post('/', async (req,res) => {
   try{
     if(Object.keys(req.body).length === 0) {
@@ -69,5 +81,15 @@ router.post('/', async (req,res) => {
     console.error(e.message)
   }
 })
+
+// router.delete('/:id',async (req,res) =>{
+//   try{
+//     const id = id
+//     if (id.length === 0){
+//       res.send(400).send({message: "Please provide a product id."})
+//     }
+//     if()
+//   }
+// })
 
 export const ProductRouter = router;
