@@ -3,12 +3,12 @@ import {awsConfig, credentials} from '../ressources/aws.config.js';
 
 AWS.config.credentials = credentials;
 const docClient = new AWS.DynamoDB.DocumentClient(awsConfig);
+const tableName = "express-products"
 
 export function getProducts(){
 
     // Checkout promisfy middleware
     return new Promise((resolve,reject) => {
-        const tableName = "express-products"
         const params = {
             TableName: tableName
         }
@@ -24,7 +24,7 @@ export function getProducts(){
             } else {
                 let results = [];
                 data.Items.forEach((product) => {
-                    console.log("Table contains objects")
+                    console.log("Found item")
                     console.log(
                         JSON.stringify(product));
                     results.push(product)
@@ -44,4 +44,24 @@ export function getProducts(){
     });
 };
 
+export function createProduct(product){
+    return new Promise((resolve,reject) => {
+        const params = {
+            TableName: tableName,
+            Item: product
+        }
 
+        docClient.put(params, (err, data) =>{
+            if (err){
+                console.error("Unable to add item. Error JSON:", JSON.stringify(err, null, 2));
+                reject(err)
+            }
+            else{
+                console.log("Added item:", JSON.stringify(data, null, 2));
+                resolve("Product added to database")
+            }
+        })
+
+
+    })
+}
