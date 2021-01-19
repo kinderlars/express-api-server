@@ -44,6 +44,37 @@ export function getProducts(){
     });
 };
 
+export function getProduct(id){
+    return new Promise((resolve, reject) => {
+        const params = {
+            TableName: tableName,
+            KeyConditionExpression: "#id = :id",
+            ExpressionAttributeNames:{
+                "#id": "id"
+            },
+            ExpressionAttributeValues: {
+                ":id": id
+            }
+        }
+
+        let results = [];
+
+        docClient.query(params, function(err, data) {
+            if (err) {
+                console.error("Unable to query. Error:", JSON.stringify(err, null, 2));
+                reject(err)
+            } else {
+                console.log("Query succeeded.");
+                data.Items.forEach(function(product) {
+                    console.log(`Product found ${JSON.stringify(product)}`);
+                    results.push(product)
+                });
+                resolve(results)
+            }
+        });
+    })
+}
+
 export function createProduct(product){
     return new Promise((resolve,reject) => {
         const params = {
