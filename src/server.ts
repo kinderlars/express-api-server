@@ -1,5 +1,5 @@
 import express from 'express';
-import { IndexRouter } from './controllers/v0/index.router.js';
+import { IndexRouter } from './controllers/v0/index.router';
 
 const API_PATH_V0 = "/api/v0";
 const ROUTES_PATH_V0 = "./routes/v0";

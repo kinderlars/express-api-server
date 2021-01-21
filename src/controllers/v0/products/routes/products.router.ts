@@ -17,7 +17,7 @@ import {
 const router = Router();
 router.use(bodyParser.json());
 
-let products = [];
+let products: any = [];
 
 router.get('/', async (req, res) => {
 
@@ -36,7 +36,7 @@ router.get('/', async (req, res) => {
 })
 
 router.get('/:id',async (req, res) => {
-  const matches = await getProduct(req.params.id)
+  const matches: any = await getProduct(req.params.id)
   if(matches.length === 0 ){
     return res.status(400).send({message: "No product found with this id"})
   }

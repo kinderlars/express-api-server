@@ -1,5 +1,5 @@
 import AWS from 'aws-sdk';
-import {awsConfig, credentials} from '../ressources/aws.config.js';
+import {awsConfig, credentials} from '../ressources/aws.config';
 
 AWS.config.credentials = credentials;
 const docClient = new AWS.DynamoDB.DocumentClient(awsConfig);
@@ -22,7 +22,7 @@ export function getProducts(){
                     JSON.stringify(err, null, 2));
                 reject(err)
             } else {
-                let results = [];
+                let results: any = [];
                 data.Items.forEach((product) => {
                     console.log("Found item")
                     console.log(
@@ -57,7 +57,7 @@ export function getProduct(id){
             }
         }
 
-        let results = [];
+        let results: any[] = [];
 
         docClient.query(params, function(err, data) {
             if (err) {
@@ -112,7 +112,7 @@ export function deleteProduct(id){
                 reject(err)
             } else {
                 console.log("DeleteItem succeeded:", JSON.stringify(data, null, 2));
-                resolve()
+                resolve("Object deleted!")
             }
         });
     })

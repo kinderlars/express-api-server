@@ -6,7 +6,7 @@ const router = Router();
 router.use(bodyParser.json());
 
 /* Temporary storage for testing only */
-let members = [];
+let members: any[]  = [];
 
 /* GET test member. */
 router.get('/test', async (req, res, next) => {
@@ -100,15 +100,15 @@ function findUserById(id){
 
 function findUserByParam(queryParam) {
 
-  const qParams = queryParam;
-  const qKeys = Object.keys(queryParam);
+  const qParams:any = queryParam;
+  const qKeys:any = Object.keys(queryParam);
 
   console.log(`Params ${JSON.stringify(qParams)}`)
   console.log(`Keys ${qKeys}`)
 
   console.log(`qkey variable has a length of ${qKeys.length}`)
 
-  let result;
+  let result:any;
 
   // Processing requests with more than 1 parameters
   if(qKeys.length > 1){

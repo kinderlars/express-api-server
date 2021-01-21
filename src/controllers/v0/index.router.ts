@@ -1,7 +1,7 @@
 import { Router} from 'express';
-import {HealthRouter} from "./health.router.js";
-import {MemberRouter} from "./members/routes/member.router.js";
-import {ProductRouter} from "./products/routes/products.router.js";
+import {HealthRouter} from "./health.router";
+import {MemberRouter} from "./members/routes/member.router";
+import {ProductRouter} from "./products/routes/products.router";
 
 const router = Router();
 
@@ -16,7 +16,7 @@ router.get('/', function(req, res, next) {
 
 /* GET home page. */
 router.get('/index', function(req, res, next) {
-  res.render('index');
+  res.send("Index")
 });
 
 export const IndexRouter = router;
