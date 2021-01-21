@@ -15,9 +15,6 @@ app.listen( port, () => {
   console.log( `press CTRL+C to stop server` );
 } );
 
-// Use the body parser middleware for post requests
-app.use(express.static(process.cwd()+"/public"));
-
 app.use(`${API_PATH_V0}/`, IndexRouter);
 
 const PORT = process.env.PORT || 3000;
