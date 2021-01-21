@@ -22,7 +22,7 @@ export function getProducts(){
                     JSON.stringify(err, null, 2));
                 reject(err)
             } else {
-                let results: any = [];
+                let results: any[] = [];
                 data.Items.forEach((product) => {
                     console.log("Found item")
                     console.log(
@@ -44,7 +44,7 @@ export function getProducts(){
     });
 };
 
-export function getProduct(id){
+export function getProduct(id: string){
     return new Promise((resolve, reject) => {
         const params = {
             TableName: tableName,
@@ -59,7 +59,7 @@ export function getProduct(id){
 
         let results: any[] = [];
 
-        docClient.query(params, function(err, data) {
+        docClient.query(params, function(err:any, data:any) {
             if (err) {
                 console.error("Unable to query. Error:", JSON.stringify(err, null, 2));
                 reject(err)

@@ -1,6 +1,6 @@
 import AWS from 'aws-sdk';
 
-export const credentials = new AWS.SharedIniFileCredentials({profile:"XYZ"});
+export const credentials = new AWS.SharedIniFileCredentials({profile:"xyz"});
 
 export const awsConfig = {
   'apiVersion': '2012-08-10',
